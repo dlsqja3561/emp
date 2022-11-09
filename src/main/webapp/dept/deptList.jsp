@@ -8,6 +8,7 @@
 <%
 	// utf-8로 인코딩
 	request.setCharacterEncoding("utf-8");
+	
 	// 1. 요청분석(Controller)
 
 	
@@ -69,23 +70,20 @@
 		  background-color: green;
 		  color: white;
 		}
-		tr td {
-			font-size: 100%;
-		}
 	</style>
 </head>
 <body>
 	<!-- 메뉴 partial jsp 구성 -->
-	<div>
+	<div class="pt-2" style="text-align: center">
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	</div>
 
-	<div class="container pt-5" style="text-align: center">
+	<div class="container pt-4" style="text-align: center">
 		<h1 class="alert alert-success">DEPT LIST</h1>
 		<div class="alert alert-primary" style="width:200px">
 			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp">부서등록</a>
 		</div>
-		<div class="pt-3">
+		<div class="pt-2">
 			<!-- 부서목록출력(부서번호 내림차순으로) -->
 			<table class="table table-bordered table-striped">
 				<tr class="table-dark">

@@ -21,7 +21,7 @@
 	ResultSet countRs = countStmt.executeQuery();
 	int count = 0;
 	if(countRs.next()) {
-		count = countRs.getInt("COUNT(*)");
+		count = countRs.getInt("COUNT(*)"); // 전체 행 개수
 	}
 	
 	int lastPage = count / rowPerPage;
@@ -51,33 +51,37 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 	<!-- 메뉴 partial jsp 구성  -->
 	<div>
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	</div>
-	<h1>사원목록</h1>
-	<table border="1">
-		<tr>
-			<th>사원번호</th>
-			<th>퍼스트네임</th>
-			<th>라스트네임</th>
-		</tr>
-	<%
-		for(Employee e : empList) {
-	%>
-			<tr>
-				<td><%=e.empNo%></td>
-				<td><a href=""><%=e.firstName%></a></td>
-				<td><%=e.lastName%></td>
+	<div class="container pt-5" style="text-align: center">
+		<h1 class="alert alert-success">사원목록</h1>
+		<table class="table table-bordered table-striped">
+			<tr class="table-dark">
+				<th>사원번호</th>
+				<th>퍼스트네임</th>
+				<th>라스트네임</th>
 			</tr>
-	<%
-		}
-	%>
-	</table>
+		<%
+			for(Employee e : empList) {
+		%>
+				<tr>
+					<td><%=e.empNo%></td>
+					<td><a href=""><%=e.firstName%></a></td>
+					<td><%=e.lastName%></td>
+				</tr>
+		<%
+			}
+		%>
+		</table>
+	</div>
 	<div>현재 페이지 : <%=currentPage%></div>
 	<!-- 페이징 코드 -->
 	<div>

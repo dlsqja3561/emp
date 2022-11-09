@@ -12,6 +12,7 @@
 	}
 
 	request.setCharacterEncoding("utf-8"); // 한글 utf-8 인코딩
+	
 	// form 에서 값 받기
 	String deptNo = request.getParameter("deptNo");
 	String deptName = request.getParameter("deptName");
@@ -31,10 +32,9 @@
 	// 쿼리 만들기
 
 	// 2-1 dept_name 중복검사 (dept_no 는 고정)
-	String sql1 = "select * from departments where dept_no = ? or dept_name = ?"; // 입력하기전에 같은 dept_no가 존재하는지 확인
+	String sql1 = "select * from departments where dept_name = ?"; // 입력하기전에 같은 dept_name가 존재하는지 확인
 	PreparedStatement stmt1 = conn.prepareStatement(sql1);
-	stmt1.setString(1, deptNo);
-	stmt1.setString(2, deptName);
+	stmt1.setString(1, deptName);
 	ResultSet rs = stmt1.executeQuery();
 	if(rs.next()) { // 결과물이있다 -> 같은 dept_no OR dept_name가 이미 존재한다.
 		String msg = URLEncoder.encode("부서이름이 중복되었습니다.","utf-8");

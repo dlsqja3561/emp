@@ -18,6 +18,7 @@
 	<h1 class="alert alert-success mx-auto" style="width:50%; text-align: center">INDEX</h1>
 	<ol>
 		<li><a href="<%=request.getContextPath()%>/dept/deptList.jsp">부서 관리</a></li>
+		<li><a href="<%=request.getContextPath()%>/emp/empList.jsp">부서</a></li>
 	</ol>
 </body>
 </html>

@@ -59,7 +59,7 @@
 		  background-color: white;
 		  color: black;
 		  border: 2px solid green;
-		  padding: 10px 20px;
+		  padding: 5px 20px;
 		  text-align: center;
 		  text-decoration: none;
 		  display: inline-block;
@@ -70,22 +70,27 @@
 		  color: white;
 		}
 		tr td {
-			font-size: 120%;
+			font-size: 100%;
 		}
 	</style>
 </head>
 <body>
+	<!-- 메뉴 partial jsp 구성 -->
+	<div>
+		<jsp:include page="/inc/menu.jsp"></jsp:include>
+	</div>
+
 	<div class="container pt-5" style="text-align: center">
 		<h1 class="alert alert-success">DEPT LIST</h1>
 		<div class="alert alert-primary" style="width:200px">
-			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp" class="alert-link">부서추가</a>
+			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp">부서등록</a>
 		</div>
 		<div class="pt-3">
 			<!-- 부서목록출력(부서번호 내림차순으로) -->
 			<table class="table table-bordered table-striped">
 				<tr class="table-dark">
-					<th>번호</th>
-					<th>이름</th>
+					<th>부서번호</th>
+					<th>부서이름</th>
 					<th>수정</th>
 					<th>삭제</th>
 				</tr>

@@ -4,10 +4,9 @@
 <%@ page import="vo.*" %>
 <%
 	request.setCharacterEncoding("utf-8"); // 한글 utf-8 인코딩
+	
 	String deptNo = request.getParameter("deptNo");
-	
-	
-	
+
 	// 드라이버 로딩
 	Class.forName("org.mariadb.jdbc.Driver"); // mariadb사용에 필요한 클래스 풀네임 입력
 	System.out.println("드라이버 로딩 성공"); // 디버깅

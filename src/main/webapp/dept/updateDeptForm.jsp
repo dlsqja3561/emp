@@ -6,6 +6,8 @@
 	request.setCharacterEncoding("utf-8"); // 한글 utf-8 인코딩
 	String deptNo = request.getParameter("deptNo");
 	
+	
+	
 	// 드라이버 로딩
 	Class.forName("org.mariadb.jdbc.Driver"); // mariadb사용에 필요한 클래스 풀네임 입력
 	System.out.println("드라이버 로딩 성공"); // 디버깅
@@ -18,11 +20,13 @@
 	stmt.setString(1, deptNo);
 	ResultSet rs = stmt.executeQuery();
 	
-	String deptName  = null;
-	if(rs.next()) {
-		deptName = rs.getString("deptName");
+	Department dept = null;
+	if(rs.next()) { // ResultSet의 API(사용방법)를 모른다면 사용할 수 없는 반복문
+		dept = new Department();
+		dept.deptNo = deptNo;
+		dept.deptName = rs.getString("deptName");
 	}
-	
+	System.out.println(dept.deptName+"dept.deptName");
 
 	
 	// 3. 출력
@@ -42,17 +46,29 @@
 	</style>
 </head>
 <body>
+	<!-- 메뉴 partial jsp 구성 -->
+	<div>
+		<jsp:include page="/inc/menu.jsp"></jsp:include>
+	</div>
 	<div class="container pt-5" style="text-align: center">
 		<h1 class="alert alert-success mx-auto" style="width:35%">수정하기</h1>
+		<!-- msg 파라메타 값이 있으면 출력 -->
+		<%
+			if(request.getParameter("msg") != null) {
+		%>
+				<div><%=request.getParameter("msg")%></div>
+		<%
+			}
+		%>
 		<form method="post" action="<%=request.getContextPath()%>/dept/updateDeptAction.jsp">
 			<table class="table table-bordered table-striped mx-auto" style="width:35%">
 				<tr>
-					<td>번호</td>
-					<td><input type="text" name="deptNo" value="<%=deptNo%>" readonly="readonly"></td>
+					<td>부서번호</td>
+					<td><input type="text" name="deptNo" value="<%=dept.deptNo%>" readonly="readonly"></td>
 				</tr>
 				<tr>
-					<td>이름</td>
-					<td><input type="text" name="deptName" value="<%=deptName%>"></td>
+					<td>부서이름</td>
+					<td><input type="text" name="deptName" value="<%=dept.deptName%>"></td>
 				</tr>
 			</table>
 			<button type="submit" style="width:10%" class="btn btn-outline-primary">수정</button>

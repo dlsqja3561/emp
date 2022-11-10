@@ -2,10 +2,21 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
+<%@ page import="java.net.URLEncoder" %>
 <%
 	request.setCharacterEncoding("utf-8"); // 한글 utf-8 인코딩
 	
 	String deptNo = request.getParameter("deptNo");
+	//deptList의 링크로 호출하지 않고 updateDeptForm.jsp 주소창에 직접 호출하면 deptNo는 null값이된다.
+   if(deptNo == null) { 
+	  String msg = request.getParameter("msg");
+      response.sendRedirect(request.getContextPath()+"/dept/deptList.jsp?msg="+URLEncoder.encode(msg,"UTF-8"));
+      return;
+   }
+
+
+
+	
 
 	// 드라이버 로딩
 	Class.forName("org.mariadb.jdbc.Driver"); // mariadb사용에 필요한 클래스 풀네임 입력
@@ -51,14 +62,6 @@
 	</div>
 	<div class="container pt-5" style="text-align: center">
 		<h1 class="alert alert-success mx-auto" style="width:35%">수정하기</h1>
-		<!-- msg 파라메타 값이 있으면 출력 -->
-		<%
-			if(request.getParameter("msg") != null) {
-		%>
-				<div><%=request.getParameter("msg")%></div>
-		<%
-			}
-		%>
 		<form method="post" action="<%=request.getContextPath()%>/dept/updateDeptAction.jsp">
 			<table class="table table-bordered table-striped mx-auto" style="width:35%">
 				<tr>

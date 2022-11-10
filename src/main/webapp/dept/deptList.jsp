@@ -1,16 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
+<%@ page import="java.net.URLEncoder" %>
 <%
 	// utf-8로 인코딩
 	request.setCharacterEncoding("utf-8");
 	
-	// 1. 요청분석(Controller)
+	// msg 파라메타 값이 있으면 출력
+	if(request.getParameter("msg") != null) {
+		String msg = request.getParameter("msg");
+		out.println("<script>alert('"+msg+"');</script>");
+	}
 
+
+// 1. 요청분석(Controller)
 	
 	// 2. 업무처리(Model) -> 모델데이터(단일값 or 자료구조형태(배열, 리스트, ...))
 	// 드라이버 로딩

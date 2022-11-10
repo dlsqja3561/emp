@@ -37,8 +37,8 @@
 	stmt1.setString(1, deptName);
 	ResultSet rs = stmt1.executeQuery();
 	if(rs.next()) { // 결과물이있다 -> 같은 dept_no OR dept_name가 이미 존재한다.
-		String msg = URLEncoder.encode("부서이름이 중복되었습니다.","utf-8");
-		response.sendRedirect(request.getContextPath()+"/dept/updateDeptForm.jsp?msg="+msg);
+		String msg = "부서이름이 중복되었습니다.";
+		response.sendRedirect(request.getContextPath()+"/dept/updateDeptForm.jsp?msg="+URLEncoder.encode(msg,"UTF-8"));
 		return;
 	}
 		

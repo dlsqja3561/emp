@@ -3,6 +3,15 @@
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
 <%
+	//msg 파라메타 값이 있으면 출력
+	if(request.getParameter("msg") != null) {
+		String msg = request.getParameter("msg");
+		out.println("<script>alert('"+msg+"');</script>");
+	}
+
+	//한글 처리 utf-8로 인코딩
+	request.setCharacterEncoding("utf-8");
+
 	// 1. 요청분석
 	int currentPage = 1;
 	if(request.getParameter("currentPage") != null) {
@@ -66,8 +75,8 @@
 	<!-- 3-1. 모델데이터(ArrayList<Board>) 출력 -->
 	<table class="table table-bordered table-striped">
 		<tr>
+			<th>번호</th>
 			<th>제목</th>
-			<th>내용</th>
 		</tr>
 		
 		<%

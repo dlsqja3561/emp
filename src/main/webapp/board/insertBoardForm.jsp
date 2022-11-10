@@ -13,7 +13,7 @@
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	</div>
 	<div class="container pt-5" style="text-align: center">
-		<h1 class="alert alert-success mx-auto" style="width:40%">입력하기</h1>
+		<h1 class="alert alert-success mx-auto" style="width:60%">입력하기</h1>
 		<!-- msg 파라메타 값이 있으면 출력 -->
 		<%
 			if(request.getParameter("msg") != null) {
@@ -23,14 +23,25 @@
 			}
 		%>
 		<form method="post" action="<%=request.getContextPath()%>/board/insertBoardAction.jsp">
-			<table class="table table-bordered table-striped mx-auto" style="width:40%">
-				
+			<table class="table table-bordered table-striped mx-auto" style="width:60%">
+				<tr>
+					<td>비밀번호</td>
+					<td><input type="text" name="boardPw"></td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td><input type="text" name="boardTitle"></td>
+				</tr>
 				<tr>
 					<td>내용</td>
-					<td><textarea rows="4" cols="40" name="boardTitle"></textarea></td>
+					<td><textarea rows="4" cols="70" name="boardContent"></textarea></td>
+				</tr>
+				<tr>
+					<td>작성자</td>
+					<td><input type="text" name="boardWriter"></td>
 				</tr>
 			</table>
-			<button type="submit" style="width:10%" class="btn btn-outline-primary">입력</button>
+			<button type="submit" style="width:20%" class="btn btn-outline-primary">입력</button>
 		</form>
 	</div>
 </body>

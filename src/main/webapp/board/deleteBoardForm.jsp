@@ -38,10 +38,10 @@
 	<form method="post" action="<%=request.getContextPath()%>/board/deleteBoardAction.jsp">
 		<table>
 			<tr>
-				<td><input type="text" name="boardNo" value="<%=board.boardNo%>" readonly="readonly">.<%=board.boardTitle%>을(를) 삭제 하시겠습니까</td>
+				<td><input type="text" name="boardNo" value="<%=board.boardNo%>" style="width:20px" readonly="readonly">.<%=board.boardTitle%> 을(를) 삭제 하시겠습니까?</td>
 			</tr>
 			<tr>
-				<td><input type="text" name="boardPw"></td>
+				<td><input type="password" name="boardPw" placeholder="비밀번호입력"></td>
 			</tr>
 		</table>
 		<button type="submit">삭제</button>

@@ -3,12 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
 <%
-	//msg 파라메타 값이 있으면 출력
-	if(request.getParameter("msg") != null) {
-		String msg = request.getParameter("msg");
-		out.println("<script>alert('"+msg+"');</script>");
-	}
-
+	
 	//한글 처리 utf-8로 인코딩
 	request.setCharacterEncoding("utf-8");
 
@@ -61,7 +56,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>boardList</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -72,6 +67,9 @@
 	</div>
 	<div class="container pt-5" style="text-align: center">
 	<h1 class="alert alert-success">자유 게시판</h1>
+	<div class="alert alert-primary" style="width:200px">
+		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp">글쓰기</a>
+	</div>
 	<!-- 3-1. 모델데이터(ArrayList<Board>) 출력 -->
 	<table class="table table-bordered table-striped">
 		<tr>

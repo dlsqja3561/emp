@@ -53,10 +53,10 @@
 					<td><input type="text" name="boardNo" value="<%=board.boardNo%>" style="width:20px" readonly="readonly">.<%=board.boardTitle%> 을(를) 삭제 하시겠습니까?</td>
 				</tr>
 				<tr>
-					<td><input type="password" name="boardPw" placeholder="비밀번호입력"></td>
+					<td><input type="password" name="boardPw" placeholder="비밀번호를 입력 하세요." style="width:300px"></td>
 				</tr>
 			</table>
-			<button type="submit">삭제</button>
+			<button type="submit" style="width:10%" class="btn btn-outline-primary">삭제</button>
 		</form>
 	</div>
 </body>

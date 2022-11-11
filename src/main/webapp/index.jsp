@@ -16,7 +16,7 @@
 </head>
 <body>
 	<h1 class="alert alert-success mx-auto" style="width:50%; text-align: center">INDEX</h1>
-	<ol>
+	<ol style="width:50%" class="mx-auto">
 		<li><a href="<%=request.getContextPath()%>/dept/deptList.jsp">부서 관리</a></li>
 		<li><a href="<%=request.getContextPath()%>/emp/empList.jsp">사원 관리</a></li>
 		<li><a href="<%=request.getContextPath()%>/board/boardList.jsp">게시판 관리</a></li>

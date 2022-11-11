@@ -3,11 +3,22 @@
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
 <%
-	//한글처리 utf-8로 인코딩
+	//	한글처리 utf-8로 인코딩
 	request.setCharacterEncoding("utf-8");
+	//	msg 값이 넘어오면 msg 출력
+	if(request.getParameter("msg") != null) { 
+		String msg = request.getParameter("msg");
+		out.println("<script>alert('"+msg+"');</script>");
+	}
+
 
 	// 1. 요청분석
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
+	// 댓글 페이징에 사용할 현재 페이지
+	int currentPage = 1;
+	if(request.getParameter("currentPage") != null) {
+		currentPage = Integer.parseInt(request.getParameter("currentPage"));
+	}
 
 	// 2. 요청처리
 	// 2-1 게시글
@@ -32,10 +43,16 @@
 	}
 
 	// 2-2 댓글 목록
-	// 댓글도 페이징 필요!  LIMIT ?, ?
-	String commentSql = "SELECT comment_no commentNo, comment_content commentContent FROM comment WHERE board_no = ? ORDER BY comment_no DESC";
+	// 댓글 페이징 추가 
+	int rowPerPage = 5;  // 1페이지당 5행
+	int beginRow = (currentPage - 1) * rowPerPage;
+	
+	
+	String commentSql = "SELECT comment_no commentNo, comment_content commentContent FROM comment WHERE board_no = ? ORDER BY comment_no DESC LIMIT ?, ?";
 	PreparedStatement commentStmt = conn.prepareStatement(commentSql);
 	commentStmt.setInt(1, boardNo);
+	commentStmt.setInt(2, beginRow);
+	commentStmt.setInt(3, rowPerPage);
 	ResultSet commentRs = commentStmt.executeQuery();
 	ArrayList<Comment> commentList = new ArrayList<Comment>();
 	while(commentRs.next()) {
@@ -44,6 +61,21 @@
 		c.commentContent = commentRs.getString("commentContent");
 		commentList.add(c);
 	}
+	
+	// 2-3 댓글 전체행 구한 후 -> 마지막페이지 구하기
+	String countSql = "SELECT COUNT(*) FROM comment"; // 전체 행 개수 구하기 쿼리
+	PreparedStatement countStmt = conn.prepareStatement(countSql);
+	ResultSet countRs = countStmt.executeQuery();
+	int count = 0;
+	if(countRs.next()) {
+		count = countRs.getInt("COUNT(*)"); // 전체 행 개수
+	}
+	
+	int lastPage = count / rowPerPage;
+	if(count % rowPerPage != 0) {
+		lastPage = lastPage + 1;
+	}
+	
 	
 %>
 
@@ -122,9 +154,26 @@
 			<div>
 				<div><%=c.commentNo%></div>
 				<div><%=c.commentContent%></div>
+				<a href="<%=request.getContextPath()%>/board/deleteCommentAction.jsp?commentNo=<%=c.commentNo%>&boardNo=<%=boardNo%>">삭제</a>
 			</div>
 		<%		
 		}
+		%>
+		<!-- 댓글 페이징 -->
+		<%
+			if(currentPage > 1) {
+		%>
+				<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage-1%>">이전</a>
+		<%
+			}
+		%>
+			<span><%=currentPage%>/<%=lastPage%></span>
+		<%
+			if(currentPage < lastPage) {
+		%>
+				<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage+1%>">다음</a>
+		<%
+			}
 		%>
 	</div>
 

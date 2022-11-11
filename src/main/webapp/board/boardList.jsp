@@ -68,12 +68,12 @@
 	<div class="container pt-5" style="text-align: center">
 	<h1 class="alert alert-success">자유 게시판</h1>
 	<div class="alert alert-primary" style="width:200px">
-		<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp">글쓰기</a>
+		<a href="<%=request.getContextPath()%>/dept/insertCommentAction.jsp">글쓰기</a>
 	</div>
 	<!-- 3-1. 모델데이터(ArrayList<Board>) 출력 -->
 	<table class="table table-bordered table-striped">
 		<tr>
-			<th>번호</th>
+			<th style="width:200px">번호</th>
 			<th>제목</th>
 		</tr>
 		

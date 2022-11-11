@@ -51,15 +51,11 @@
 	int row = stmt.executeUpdate();
 	if(row == 1) {
 		System.out.println("수정성공");
+		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
 	} else {
 		System.out.println("수정실패");
 		String msg = URLEncoder.encode("수정실패 비밀번호가 틀렸습니다.","utf-8"); // get방식 주소창에 문자열 인코딩
-		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp?msg="+msg);
-		return;
+		response.sendRedirect(request.getContextPath()+"/board/updateBoardForm.jsp?boardNo="+boardNo+"&msg="+msg);
 	}
 
-
-	response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
-	
-	
 %>

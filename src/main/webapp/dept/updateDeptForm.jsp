@@ -5,6 +5,8 @@
 <%@ page import="java.net.URLEncoder" %>
 <%
 	request.setCharacterEncoding("utf-8"); // 한글 utf-8 인코딩
+
+	
 	
 	String deptNo = request.getParameter("deptNo");
 	//deptList의 링크로 호출하지 않고 updateDeptForm.jsp 주소창에 직접 호출하면 deptNo는 null값이된다.
@@ -46,7 +48,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>updateDeptForm</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 	<style>

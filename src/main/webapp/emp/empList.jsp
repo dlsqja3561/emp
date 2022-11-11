@@ -3,6 +3,9 @@
 <%@ page import="vo.*" %>
 <%@ page import="java.util.*" %>
 <%	
+	//한글처리 utf-8로 인코딩
+	request.setCharacterEncoding("utf-8");
+
 	// 1
 	// 페이지 알고리즘
 	int currentPage = 1;
@@ -52,7 +55,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>empList</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>

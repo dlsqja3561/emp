@@ -42,45 +42,53 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>updateBoardForm</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<style>
+		input {
+			width : 477px;
+		}
+	</style>
 </head>
 <body>
 	<!-- 메뉴 partial jsp 구성 -->
 	<div>
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	</div>
-	
-	<h1>게시글 수정하기</h1>
-	<form method="post" action="<%=request.getContextPath()%>/board/updateBoardAction.jsp">
-		<table border="1">
-			<tr>
-				<td>번호</td>
-				<td><input type="text" name="boardNo" value="<%=board.boardNo%>" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td><input type="text" name="boardTitle" value="<%=board.boardTitle%>"></td>
-			</tr>
-			<tr>
-				<td>내용</td>
-				<td><textarea rows="4" cols="40" name="boardContent"><%=board.boardContent%></textarea>
-				</td>
-			</tr>
-			<tr>
-				<td>글쓴이</td>
-				<td><input type="text" name="boardWriter" value="<%=board.boardWriter%>"></td>
-			</tr>
-			<tr>
-				<td>생성날짜</td>
-				<td><input type="text" name="createdate" value="<%=board.createdate%>" readonly="readonly"></td>
-			</tr>
-			<tr>
-				<td>비밀번호입력</td>
-				<td><input type="text" name="boardPw"></td>
-			</tr>
-		</table>
-		<button type="submit">수정</button>
-	</form>
+	<div class="container pt-5" style="text-align: center">
+		<h1 class="alert alert-success mx-auto" style="width:60%">게시글 수정하기</h1>
+		<form method="post" action="<%=request.getContextPath()%>/board/updateBoardAction.jsp">
+			<table class="table table-bordered table-striped mx-auto" style="width:60%">
+				<tr>
+					<td>번호</td>
+					<td><input type="text" name="boardNo" value="<%=board.boardNo%>" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<td>제목</td>
+					<td><input type="text" name="boardTitle" value="<%=board.boardTitle%>"></td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td><textarea rows="4" cols="60" name="boardContent"><%=board.boardContent%></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td>글쓴이</td>
+					<td><input type="text" name="boardWriter" value="<%=board.boardWriter%>"></td>
+				</tr>
+				<tr>
+					<td>생성날짜</td>
+					<td><input type="text" name="createdate" value="<%=board.createdate%>" readonly="readonly"></td>
+				</tr>
+				<tr>
+					<td>비밀번호입력</td>
+					<td><input type="text" name="boardPw"></td>
+				</tr>
+			</table>
+			<button type="submit" style="width:10%" class="btn btn-outline-primary">수정</button>
+		</form>
+	</div>
 </body>
 </html>

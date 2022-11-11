@@ -4,7 +4,7 @@
 <%@ page import="vo.*" %>
 <%@ page import="java.net.URLEncoder" %>
 <%
-	// utf-8로 인코딩
+	// 한글처리 utf-8로 인코딩
 	request.setCharacterEncoding("utf-8");
 	
 	// msg 파라메타 값이 있으면 출력
@@ -53,7 +53,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
+	<title>deptList</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 	<style>
@@ -83,7 +83,7 @@
 	</div>
 
 	<div class="container pt-4" style="text-align: center">
-		<h1 class="alert alert-success">DEPT LIST</h1>
+		<h1 class="alert alert-success">부서관리</h1>
 		<div class="alert alert-primary" style="width:200px">
 			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp">부서등록</a>
 		</div>

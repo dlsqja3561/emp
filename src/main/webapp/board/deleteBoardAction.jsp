@@ -29,7 +29,7 @@
 		response.sendRedirect(request.getContextPath()+"/board/boardList.jsp");
 	} else {
 		System.out.println("삭제실패");
-		String msg = URLEncoder.encode("삭제불가 비밀번호가 틀렸습니다.","utf-8"); // get방식 주소창에 문자열 인코딩
+		String msg = URLEncoder.encode("삭제실패 비밀번호가 틀렸습니다.","utf-8"); // get방식 주소창에 문자열 인코딩
 		response.sendRedirect(request.getContextPath()+"/board/deleteBoardForm.jsp?boardNo="+boardNo+"&msg="+msg);
 	}
 			

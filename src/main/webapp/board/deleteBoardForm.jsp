@@ -3,7 +3,12 @@
 <%@ page import="vo.*" %>
 <%
 	request.setCharacterEncoding("utf-8"); // 한글처리 utf-8 인코딩
-
+	// 비밀번호가 다를시 msg 출력
+	if(request.getParameter("msg") != null) {
+		String msg = request.getParameter("msg");
+		out.println("<script>alert('"+msg+"');</script>");
+	}
+	
 	// 1. 요청분석
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 
@@ -30,21 +35,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>deleteBoardForm</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<h1></h1>
-	<form method="post" action="<%=request.getContextPath()%>/board/deleteBoardAction.jsp">
-		<table>
-			<tr>
-				<td><input type="text" name="boardNo" value="<%=board.boardNo%>" style="width:20px" readonly="readonly">.<%=board.boardTitle%> 을(를) 삭제 하시겠습니까?</td>
-			</tr>
-			<tr>
-				<td><input type="password" name="boardPw" placeholder="비밀번호입력"></td>
-			</tr>
-		</table>
-		<button type="submit">삭제</button>
-	</form>
+	<!-- 메뉴 partial jsp 구성 -->
+	<div>
+		<jsp:include page="/inc/menu.jsp"></jsp:include>
+	</div>
+	<div class="container pt-5" style="text-align: center">
+		<h1 class="alert alert-success mx-auto" style="width:35%">삭제하기</h1>
+		<form method="post" action="<%=request.getContextPath()%>/board/deleteBoardAction.jsp">
+			<table class="table table-bordered table-striped mx-auto" style="width:35%">
+				<tr>
+					<td><input type="text" name="boardNo" value="<%=board.boardNo%>" style="width:20px" readonly="readonly">.<%=board.boardTitle%> 을(를) 삭제 하시겠습니까?</td>
+				</tr>
+				<tr>
+					<td><input type="password" name="boardPw" placeholder="비밀번호입력"></td>
+				</tr>
+			</table>
+			<button type="submit">삭제</button>
+		</form>
+	</div>
 </body>
 </html>

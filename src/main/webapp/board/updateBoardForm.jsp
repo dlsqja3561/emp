@@ -2,6 +2,14 @@
 <%@ page import="java.sql.*" %>
 <%@ page import="vo.*" %>
 <%
+	request.setCharacterEncoding("utf-8"); // 한글처리 utf-8 인코딩
+	// 비밀번호가 다를시 msg 출력
+	if(request.getParameter("msg") != null) { 
+		String msg = request.getParameter("msg");
+		out.println("<script>alert('"+msg+"');</script>");
+	}
+
+
 	// 1. 요청분석
 	int boardNo = Integer.parseInt(request.getParameter("boardNo"));
 

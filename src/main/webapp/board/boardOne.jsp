@@ -154,7 +154,7 @@
 			<div>
 				<div><%=c.commentNo%></div>
 				<div><%=c.commentContent%></div>
-				<a href="<%=request.getContextPath()%>/board/deleteCommentAction.jsp?commentNo=<%=c.commentNo%>&boardNo=<%=boardNo%>">삭제</a>
+				<a href="<%=request.getContextPath()%>/board/deleteCommentForm.jsp?commentNo=<%=c.commentNo%>&boardNo=<%=boardNo%>">삭제</a>
 			</div>
 		<%		
 		}

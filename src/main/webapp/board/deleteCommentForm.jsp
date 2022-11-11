@@ -16,14 +16,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>deleteCommentForm</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 	<form method="post" action="<%=request.getContextPath()%>/board/deleteCommentAction.jsp">
-		<div>
-			<h2>댓글삭제</h2>
-			<table>
+		<div class="container pt-5" style="text-align: center">
+			<h2 class="alert alert-success mx-auto" style="width:35%">댓글삭제</h2>
+			<table class="table table-bordered mx-auto" style="width:35%">
 				<tr>
 					<th>비밀번호를 입력해 주세요.</th>
 				</tr>
@@ -31,8 +33,8 @@
 					<td><input type="password" name="commentPw"></td>
 				</tr>
 			</table>
+			<button type="submit" class="btn btn-outline-primary" style="width:10%">삭제</button>
 		</div>
-		<button type="submit">삭제</button>
 		<input type="hidden" name="boardNo" value="<%=boardNo%>">
 		<input type="hidden" name="commentNo" value="<%=commentNo%>">
 	</form>

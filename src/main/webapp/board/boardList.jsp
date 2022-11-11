@@ -97,7 +97,7 @@
 		<%
 			if(currentPage > 1) {
 		%>
-				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>">이전</a>
+				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><</a>
 		<%
 			}
 		%>
@@ -105,7 +105,7 @@
 		<%
 			if(currentPage < lastPage) {
 		%>
-				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>">다음</a>
+				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm">></a>
 		<%
 			}
 		%>

@@ -122,59 +122,63 @@
 				<td><%=board.createdate%></td>
 			</tr>
 		</table>
+		<a href="<%=request.getContextPath()%>/board/updateBoardForm.jsp?boardNo=<%=boardNo%>" class="btn btn-outline-success">수정</a>
+		<a href="<%=request.getContextPath()%>/board/deleteBoardForm.jsp?boardNo=<%=boardNo%>" class="btn btn-outline-danger">삭제</a>
 	</div>
-		<a href="<%=request.getContextPath()%>/board/updateBoardForm.jsp?boardNo=<%=boardNo%>">수정</a>
-		<a href="<%=request.getContextPath()%>/board/deleteBoardForm.jsp?boardNo=<%=boardNo%>">삭제</a>
-
 
 	<div>
 		<!-- 댓글입력 폼 -->
-		<h2>댓글입력</h2>
 		<form action="<%=request.getContextPath()%>/board/insertCommentAction.jsp" method="post">
 			<input type="hidden" name="boardNo" value="<%=board.boardNo%>">
-			<table border="1">
-				<tr>
-					<td>내용</td>
-					<td><textarea rows="3" cols="80" name="commentContent"></textarea></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td><input type="password" name="commentPw"></td>
-				</tr>
-			</table>
-			<button type="submit">댓글입력</button>
+			<div class="container pt-5" style="text-align: center">
+				<h2 class="alert alert-success">댓글입력</h2>
+				<table class="table table-bordered">
+					<tr>
+						<th>내용</th>
+						<td><textarea rows="3" cols="100" name="commentContent"></textarea></td>
+					</tr>
+					<tr>
+						<th>비밀번호</th>
+						<td><input type="password" name="commentPw" style="width:780px"></td>
+					</tr>
+				</table>
+			<button type="submit" class="btn btn-outline-primary">댓글입력</button>
+			</div>
 		</form>
 	</div>
-	<div>
-		<!-- 댓글목록 -->
-		<h2>댓글목록</h2>
-		<%
-		for(Comment c : commentList) {
-		%>
-			<div>
-				<div><%=c.commentNo%></div>
-				<div><%=c.commentContent%></div>
-				<a href="<%=request.getContextPath()%>/board/deleteCommentForm.jsp?commentNo=<%=c.commentNo%>&boardNo=<%=boardNo%>">삭제</a>
-			</div>
-		<%		
-		}
-		%>
-		<!-- 댓글 페이징 -->
-		<%
-			if(currentPage > 1) {
-		%>
-				<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage-1%>">이전</a>
-		<%
+	<div class="container pt-5" style="text-align: center">
+		
+			<!-- 댓글목록 -->
+			<h2 class="alert alert-success" style="text-align: center">댓글목록</h2>
+			<table class="table table-bordered">
+			<%
+			for(Comment c : commentList) {
+			%>
+				<tr>
+					<td><%=c.commentContent%></td>
+					<td><a href="<%=request.getContextPath()%>/board/deleteCommentForm.jsp?commentNo=<%=c.commentNo%>&boardNo=<%=boardNo%>" class="btn btn-outline-danger">삭제</a></td>
+				</tr>
+			<%		
 			}
-		%>
-			<span><%=currentPage%>/<%=lastPage%></span>
-		<%
-			if(currentPage < lastPage) {
-		%>
-				<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage+1%>">다음</a>
-		<%
-			}
-		%>
+			%>
+			</table>
+			<!-- 댓글 페이징 -->
+			<%
+				if(currentPage > 1) {
+			%>
+					<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><</a>
+			<%
+				}
+			%>
+				<span><%=currentPage%></span>
+			<%
+				if(currentPage < lastPage) {
+			%>
+					<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm">></a>
+			<%
+				}
+			%>
+		
 	</div>
 
 

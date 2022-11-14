@@ -36,7 +36,6 @@
 	}
 		ResultSet countRs = countStmt.executeQuery();
 
-	
 	int count = 0;
 	if(countRs.next()) {
 		count = countRs.getInt("COUNT(*)"); // 전체 행 개수
@@ -46,7 +45,6 @@
 	if(count % rowPerPage != 0) {
 		lastPage = lastPage + 1; // lastPage++, lastPage+=1
 	}
-	
 
 	String empSql = null;
 	PreparedStatement empStmt = null;
@@ -123,20 +121,43 @@
 	<div>현재 페이지 : <%=currentPage%></div>
 	<!-- 페이징 코드 -->
 	<div style="text-align: center">
-		<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1">처음</a>
+		<%
+			if(word == null) {
+		%>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1">처음</a>
 		<%
 			if(currentPage > 1) {
 		%>
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
-			}
+				}
 			if(currentPage < lastPage) {
 		%>
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
 		<%
 			}
 		%>
-		<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>">마지막</a>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>">마지막</a>
+		<%
+			} else {
+		%>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1">처음</a>
+		<%
+			if(currentPage > 1) {
+		%>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+		<%
+				}
+			if(currentPage < lastPage) {
+		%>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+		<%
+				}
+		%>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>">마지막</a>
+		<%
+			}
+		%>
 	</div>
 </body>
 </html>

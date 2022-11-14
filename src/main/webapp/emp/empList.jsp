@@ -130,9 +130,13 @@
 		%>
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
-				}
+			} else {
 		%>
-			<div><%=currentPage%>/<%=lastPage%></div>
+				<a href="" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+		<%
+			}
+		%>
+			<span><%=currentPage%>/<%=lastPage%></span>
 		<%
 			if(currentPage < lastPage) {
 		%>
@@ -152,6 +156,9 @@
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
 				}
+		%>
+		<span><%=currentPage%>/<%=lastPage%></span>
+		<%
 			if(currentPage < lastPage) {
 		%>
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>

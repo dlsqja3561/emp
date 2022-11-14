@@ -29,9 +29,11 @@
 		countSql = "SELECT COUNT(*) FROM salaries"; // 전체 행 개수 구하기 쿼리
 		countStmt = conn.prepareStatement(countSql);
 	} else {
-		countSql = "SELECT COUNT(*) FROM salaries WHERE emp_no LIKE ?";
+		countSql = "SELECT COUNT(*) FROM salaries WHERE emp_no LIKE ? OR first_name LIKE ? OR last_name LIKE ?";
 		countStmt = conn.prepareStatement(countSql);
 		countStmt.setString(1, "%"+word+"%");
+		countStmt.setString(2, "%"+word+"%");
+		countStmt.setString(3, "%"+word+"%");
 		
 	}
 		ResultSet countRs = countStmt.executeQuery();
@@ -45,6 +47,8 @@
 	if(count % rowPerPage != 0) {
 		lastPage = lastPage + 1; // lastPage++, lastPage+=1
 	}
+	System.out.println(lastPage + "lastPage");
+	System.out.println(word + "word");
 			
 	/*
 	SELECT s.emp_no empNo
@@ -75,6 +79,8 @@
 		alaryStmt.setInt(4, beginRow);
 		alaryStmt.setInt(5, rowPerPage);
 	}
+	System.out.println(lastPage + "lastPage");
+	System.out.println(word + "word");
 	
 	
 	ResultSet rs = alaryStmt.executeQuery();
@@ -90,6 +96,8 @@
 		s.emp.lastName = rs.getString("lastName");
 		salaryList.add(s);
 	}
+	System.out.println(lastPage + "lastPage");
+	System.out.println(word + "word");
 %>
 
 
@@ -97,8 +105,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 	<div>
@@ -131,12 +141,75 @@
 	<div>
 		<!-- 검색창 -->
 		<form method="post" action="<%=request.getContextPath()%>/salary/salaryList.jsp">
-			<label>이름 검색 : </label>	
+			<label>번호 or 이름 검색 : </label>	
 		 		<input type="text" name="word" id="word">
 		 		<button type="submit">검색</button>
 		</form>
 	</div>
-
+	<!-- 페이징 코드 -->
+	<div style="text-align: center">
+		<%
+		// word 값 X 페이징-----------------------------------------------
+			if(word == null) {
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=1">처음</a>
+		<%
+			if(currentPage > 1) {
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+		<%
+			} else {
+		%>
+				<a href="" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+		<%
+			}
+		%>
+			<span><%=currentPage%>/<%=lastPage%></span>
+		<%
+			if(currentPage < lastPage) {
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+		<%
+			} else {
+		%>
+				<a href="" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+		<%
+			}
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=lastPage%>">마지막</a>
+		<%
+		// 검색 후 페이징 -------------------------------------------------
+			} else {
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=1&word=<%=word%>">처음</a>
+		<%
+			if(currentPage > 1) {
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+		<%
+			} else {
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+		<%
+			}
+		%>
+			<span><%=currentPage%>/<%=lastPage%></span>
+		<%
+			if(currentPage < lastPage) {
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+		<%
+			} else {
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+		<%
+			}
+		%>
+				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=lastPage%>&word=<%=word%>">마지막</a>
+		<%
+			}
+		%>
+	</div>
 
 </body>
 </html>

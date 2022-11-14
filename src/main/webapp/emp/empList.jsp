@@ -118,10 +118,10 @@
 	 		<button type="submit">검색</button>
 	</form>
 	
-	<div>현재 페이지 : <%=currentPage%></div>
 	<!-- 페이징 코드 -->
 	<div style="text-align: center">
 		<%
+			// word 값 X 페이징
 			if(word == null) {
 		%>
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1">처음</a>
@@ -131,6 +131,9 @@
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
 				}
+		%>
+			<div><%=currentPage%>/<%=lastPage%></div>
+		<%
 			if(currentPage < lastPage) {
 		%>
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
@@ -139,22 +142,23 @@
 		%>
 				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>">마지막</a>
 		<%
+			// 검색 후 페이징
 			} else {
 		%>
-				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1">처음</a>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=1&word=<%=word%>">처음</a>
 		<%
 			if(currentPage > 1) {
 		%>
-				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
 				}
 			if(currentPage < lastPage) {
 		%>
-				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
 		<%
 				}
 		%>
-				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>">마지막</a>
+				<a href="<%=request.getContextPath()%>/emp/empList.jsp?currentPage=<%=lastPage%>&word=<%=word%>">마지막</a>
 		<%
 			}
 		%>

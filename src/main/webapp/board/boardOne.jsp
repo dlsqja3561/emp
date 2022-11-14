@@ -166,7 +166,7 @@
 			<%
 				if(currentPage > 1) {
 			%>
-					<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><</a>
+					<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 			<%
 				}
 			%>
@@ -174,7 +174,7 @@
 			<%
 				if(currentPage < lastPage) {
 			%>
-					<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm">></a>
+					<a href="<%=request.getContextPath()%>/board/boardOne.jsp?boardNo=<%=boardNo%>&currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
 			<%
 				}
 			%>

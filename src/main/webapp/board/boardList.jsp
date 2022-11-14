@@ -3,7 +3,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="vo.*" %>
 <%
-	
 	//한글 처리 utf-8로 인코딩
 	request.setCharacterEncoding("utf-8");
 
@@ -12,17 +11,31 @@
 	if(request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
+	// 검색 입력값 받기
+	String word = request.getParameter("word");
 	
 	// 2. 요청처리 후 필요하다면 모델데이터를 생성
 	final int ROW_PER_PAGE = 10; // 변수앞에 final -> (상수)더이상 바뀔 수 없게, 대문자로 표시
 	int beginRow = (currentPage-1) * ROW_PER_PAGE; // ... Limit beginRow, ROW_PER_PAGE
-	
+	// 드라이버 로딩
 	Class.forName("org.mariadb.jdbc.Driver");
-	
+	// 마리아db 접속
 	Connection conn = DriverManager.getConnection("jdbc:mariadb://localhost:3306/employees","root","java1234");
-
-	String cntSql = "SELECT COUNT(*) cnt FROM board";
-	PreparedStatement cntStmt = conn.prepareStatement(cntSql);
+	
+	// 2-1
+	String cntSql = null;
+	PreparedStatement cntStmt = null;
+	// 검색 X 전체 행 구하기
+	if(word == null) {
+		cntSql = "SELECT COUNT(*) cnt FROM board";
+		cntStmt = conn.prepareStatement(cntSql);
+	// 검색 했을때 쿼리
+	} else {
+		cntSql = "SELECT COUNT(*) cnt FROM board WHERE board_title LIKE ? ORDER BY board_no ASC";
+		cntStmt = conn.prepareStatement(cntSql);
+		cntStmt.setString(1, "%"+word+"%");
+	}
+	
 	ResultSet cntRs = cntStmt.executeQuery();
 	int cnt = 0; // 전체 행 수
 	if(cntRs.next()) {
@@ -30,12 +43,26 @@
 	}
 	// Math.ceil 올림 = 5.3 -> 6.0 , 5.0 -> 5.0
 	int lastPage = (int)Math.ceil((double)cnt / (double)ROW_PER_PAGE);
+
+	// 2-2
 	
+	String listSql = null;
+	PreparedStatement listStmt = null;
+	// 검색 X 
+	if(word == null) {
+		listSql = "select board_no boardNo, board_title boardTitle from board order by board_no asc limit ?, ?";
+		listStmt = conn.prepareStatement(listSql);
+		listStmt.setInt(1, beginRow);
+		listStmt.setInt(2, ROW_PER_PAGE);
+		// 검색 했을때 쿼리
+	} else {
+		listSql = "select board_no boardNo, board_title boardTitle from board WHERE board_title LIKE ? order by board_no asc limit ?, ?";
+		listStmt = conn.prepareStatement(listSql);
+		listStmt.setString(1, "%"+word+"%");
+		listStmt.setInt(2, beginRow);
+		listStmt.setInt(3, ROW_PER_PAGE);
+	}
 	
-	String listSql = "select board_no boardNo, board_title boardTitle from board order by board_no asc limit ?, ?";
-	PreparedStatement listStmt = conn.prepareStatement(listSql);
-	listStmt.setInt(1, beginRow);
-	listStmt.setInt(2, ROW_PER_PAGE);
 	ResultSet listRs = listStmt.executeQuery(); // 모델 source data
 	ArrayList<Board> boardList = new ArrayList<Board>(); // 모델 new data
 	while(listRs.next()) {
@@ -44,13 +71,7 @@
 		b.boardTitle = listRs.getString("boardTitle");
 		boardList.add(b);
 	}
-
-
-
 %>
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -90,26 +111,60 @@
 		%>
 	</table>
 	</div>
-	
+	<!-- 검색창 -->
+	<form method="post" action="<%=request.getContextPath()%>/board/boardList.jsp">
+		<label>제목 검색 : </label>	
+	 		<input type="text" name="word" id="word" value="">
+	 		<button type="submit">검색</button>
+	</form>
+
 	<!-- 3-2. 페이징 -->
 	<div style="text-align: center">
-		<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1">처음</a>
+	<!-- word null일때 페이징 -->
+	<%
+		if(word == null) {
+	%>
+			<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1">처음</a>
 		<%
 			if(currentPage > 1) {
 		%>
-				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><</a>
+				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
 			}
 		%>
-		<span><%=currentPage%></span>
+		<span><%=currentPage%>/<%=lastPage%></span>
 		<%
 			if(currentPage < lastPage) {
 		%>
-				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm">></a>
+				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
 		<%
 			}
 		%>
 		<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>">마지막</a>
+		<%
+		} else {
+		%>
+		<!-- word 값이 있을때 페이징 -->
+		<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=1&word=<%=word%>">처음</a>
+		<%
+			if(currentPage > 1) {
+		%>
+				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+		<%
+			}
+		%>
+		<span><%=currentPage%>/<%=lastPage%></span>
+		<%
+			if(currentPage < lastPage) {
+		%>
+				<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+		<%
+			}
+		%>
+		<a href="<%=request.getContextPath()%>/board/boardList.jsp?currentPage=<%=lastPage%>&word=<%=word%>">마지막</a>
+		<%
+		}
+		%>
 	</div>
 </body>
 </html>

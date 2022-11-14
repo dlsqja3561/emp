@@ -6,16 +6,18 @@
 <%
 	// 한글처리 utf-8로 인코딩
 	request.setCharacterEncoding("utf-8");
-	
+	//1. 요청분석(Controller)	
+
 	// msg 파라메타 값이 있으면 출력
 	if(request.getParameter("msg") != null) {
 		String msg = request.getParameter("msg");
 		out.println("<script>alert('"+msg+"');</script>");
 	}
 
+	String word = request.getParameter("word");
+	// 1) word -> null , 2) word -> '' or word -> '단어'  2가지 형태로 쿼리가 분기
 
-// 1. 요청분석(Controller)
-	
+
 	// 2. 업무처리(Model) -> 모델데이터(단일값 or 자료구조형태(배열, 리스트, ...))
 	// 드라이버 로딩
 	Class.forName("org.mariadb.jdbc.Driver"); // mariadb사용에 필요한 클래스 풀네임 입력
@@ -26,9 +28,31 @@
 	System.out.println(conn +"<--conn");
 
 	// 접속한 데이터베이스에 쿼리 만들기
-//	PreparedStatement stmt = conn.prepareStatement("select dept_no deptNo, dept_name deptName from departments order by dept_no desc");
+	String sql = null;
+	PreparedStatement stmt = null;
+	if(word == null) {
+		sql = "SELECT dept_no deptNo, dept_name deptName FROM departments ORDER BY dept_no ASC";
+		stmt = conn.prepareStatement(sql);
+	} else {
+      /*
+      SELECT *
+      FROM departments
+      WHERE dept_name LIKE ?
+      ORDER BY dept_no ASC
+   */
+	sql = "SELECT dept_no deptNo, dept_name deptName FROM departments WHERE dept_name LIKE ? ORDER BY dept_no ASC";
+	stmt = conn.prepareStatement(sql);
+	stmt.setString(1, "%"+word+"%");
+	}
+	
+	
+	
+	
+	/*	PreparedStatement stmt = conn.prepareStatement("select dept_no deptNo, dept_name deptName from departments order by dept_no desc");
 	String sql = "select dept_no deptNo, dept_name deptName from departments order by dept_no asc";
 	PreparedStatement stmt = conn.prepareStatement(sql);
+*/
+	
 	// 쿼리 실행 메서드 (select 쿼리 결과물)
 	ResultSet rs = stmt.executeQuery(); // <- 모델데이터로 ResultSet은 일반적인 타입이 아니고 독립적인 타입도 아니다
 										// ResultSet rs라는 모델자료구조를 좀더 일반적이고 독립적인 자료구조 변경을 하자
@@ -86,30 +110,36 @@
 		<h1 class="alert alert-success">부서관리</h1>
 		<div class="alert alert-primary" style="width:200px">
 			<a href="<%=request.getContextPath()%>/dept/insertDeptForm.jsp">부서등록</a>
-		</div>
-		<div class="pt-2">
-			<!-- 부서목록출력(부서번호 내림차순으로) -->
-			<table class="table table-bordered table-striped">
-				<tr class="table-dark">
-					<th>부서번호</th>
-					<th>부서이름</th>
-					<th>수정</th>
-					<th>삭제</th>
-				</tr>
-					<%
-						for(Department d : list) {
-					%>
-						<tr>
-							<td><%=d.deptNo%></td>
-							<td><%=d.deptName%></td>
-							<td><a href="<%=request.getContextPath()%>/dept/updateDeptForm.jsp?deptNo=<%=d.deptNo%>">수정</a></td>
-							<td><a href="<%=request.getContextPath()%>/dept/deleteDept.jsp?deptNo=<%=d.deptNo%>">삭제</a></td>
-						</tr>
-					<%
-						}
-					%>
-			</table>
-		</div>
+	</div>
+		<!-- 부서명 검색창 -->
+	<form method="post" action="<%=request.getContextPath()%>/dept/deptList2.jsp">
+		<label>부서이름 검색 : </label>	
+		<input type="text" name="word" id="word">
+		<button type="submit">검색</button>
+	</form>
+	<div class="pt-2">
+		<!-- 부서목록출력(부서번호 내림차순으로) -->
+		<table class="table table-bordered table-striped">
+			<tr class="table-dark">
+				<th>부서번호</th>
+				<th>부서이름</th>
+				<th>수정</th>
+				<th>삭제</th>
+			</tr>
+				<%
+					for(Department d : list) {
+				%>
+					<tr>
+						<td><%=d.deptNo%></td>
+						<td><%=d.deptName%></td>
+						<td><a href="<%=request.getContextPath()%>/dept/updateDeptForm.jsp?deptNo=<%=d.deptNo%>">수정</a></td>
+						<td><a href="<%=request.getContextPath()%>/dept/deleteDept.jsp?deptNo=<%=d.deptNo%>">삭제</a></td>
+					</tr>
+				<%
+					}
+				%>
+		</table>
+	</div>
 	</div>
 </body>
 </html>

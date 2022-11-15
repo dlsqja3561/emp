@@ -7,7 +7,7 @@
 	
 	
 	// 2.
-	int rowPerPage = 5;
+	int rowPerPage = 10;
 	int beginRow = 0;
 	
 	String driver = "org.mariadb.jdbc.Driver";
@@ -18,7 +18,7 @@
 	
 	Connection conn = DriverManager.getConnection(dbUrl, dbUser, dbPw);
 	
-	String sql = "SELECT de.emp_no empNo, e.first_name firstName, d.dept_name deptName, de.from_date fromDate, de.to_date toDate FROM dept_emp de INNER JOIN employees e ON de.emp_no = e.emp_no INNER JOIN departments d ON de.dept_no = d.dept_no LIMIT ?, ?";
+	String sql = "SELECT de.emp_no empNo, d.dept_no deptNo, d.dept_name deptName, e.first_name firstName, de.from_date fromDate, de.to_date toDate FROM dept_emp de INNER JOIN employees e ON de.emp_no = e.emp_no INNER JOIN departments d ON de.dept_no = d.dept_no LIMIT ?, ?";
 	PreparedStatement stmt = conn. prepareStatement(sql);
 	stmt.setInt(1, beginRow);
 	stmt.setInt(2, rowPerPage);
@@ -31,6 +31,8 @@
 		de.emp.empNo = rs.getInt("empNo");
 		de.dept = new Department();
 		de.dept.deptNo = rs.getString("deptNo");
+		de.dept.deptName = rs.getString("deptname");
+		de.emp.firstName = rs.getString("firstName");
 		de.fromDate = rs.getString("fromDate");
 		de.toDate = rs.getString("toDate");
 		list.add(de);
@@ -51,6 +53,7 @@
 			<tr>
 				<th>empNo</th>
 				<th>deptNo</th>
+				<th>firstName</th>
 				<th>fromDate</th>
 				<th>toDate</th>
 			</tr>
@@ -60,6 +63,7 @@
 					<tr>
 						<td><%=de.emp.empNo%></td>
 						<td><%=de.dept.deptNo%></td>
+						<td><%=de.emp.firstName%></td>
 						<td><%=de.fromDate%></td>
 						<td><%=de.toDate%></td>
 					</tr>

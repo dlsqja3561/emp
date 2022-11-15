@@ -29,7 +29,7 @@
 		countSql = "SELECT COUNT(*) FROM salaries"; // 전체 행 개수 구하기 쿼리
 		countStmt = conn.prepareStatement(countSql);
 	} else {
-		countSql = "SELECT COUNT(*) FROM salaries WHERE emp_no LIKE ? OR first_name LIKE ? OR last_name LIKE ?";
+		countSql = "SELECT COUNT(*) FROM salaries s INNER JOIN employees e ON s.emp_no = e.emp_no WHERE s.emp_no LIKE ? OR e.first_name LIKE ? OR e.last_name LIKE ?";
 		countStmt = conn.prepareStatement(countSql);
 		countStmt.setString(1, "%"+word+"%");
 		countStmt.setString(2, "%"+word+"%");
@@ -154,25 +154,25 @@
 		%>
 				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=1">처음</a>
 		<%
-			if(currentPage > 1) {
+				if(currentPage > 1) {
 		%>
 				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage-1%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
-			} else {
+				} else {
 		%>
-				<a href="" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+					<a href="" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
 			}
 		%>
 			<span><%=currentPage%>/<%=lastPage%></span>
 		<%
-			if(currentPage < lastPage) {
+				if(currentPage < lastPage) {
 		%>
-				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+					<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
 		<%
-			} else {
+				} else {
 		%>
-				<a href="" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+					<a href="" class="btn btn-outline-dark btn-sm"><%=">"%></a>
 		<%
 			}
 		%>
@@ -183,25 +183,25 @@
 		%>
 				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=1&word=<%=word%>">처음</a>
 		<%
-			if(currentPage > 1) {
+				if(currentPage > 1) {
 		%>
-				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+					<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage-1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
-			} else {
+				} else {
 		%>
-				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
+					<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%="<"%></a>
 		<%
 			}
 		%>
 			<span><%=currentPage%>/<%=lastPage%></span>
 		<%
-			if(currentPage < lastPage) {
+				if(currentPage < lastPage) {
 		%>
-				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+					<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage+1%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
 		<%
-			} else {
+				} else {
 		%>
-				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
+					<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=<%=currentPage%>&word=<%=word%>" class="btn btn-outline-dark btn-sm"><%=">"%></a>
 		<%
 			}
 		%>

@@ -84,7 +84,7 @@
 		h1 {
 		  text-shadow: 1px 1px 2px black, 0 0 25px blue, 0 0 5px darkblue;
 		}
-		a:link, a:visited {
+		 a.menu:link, a.menu:visited {
 		  background-color: white;
 		  color: black;
 		  border: 2px solid green;
@@ -94,7 +94,7 @@
 		  display: inline-block;
 		}
 		
-		a:hover, a:active {
+		 a.menu:hover, a.menu:active {
 		  background-color: green;
 		  color: white;
 		}
@@ -113,8 +113,7 @@
 	</div>
 		<!-- 부서명 검색창 -->
 	<form method="post" action="<%=request.getContextPath()%>/dept/deptList2.jsp">
-		<label>부서이름 검색 : </label>	
-		<input type="text" name="word" id="word">
+		<input type="text" name="word" id="word" placeholder="부서이름 검색">
 		<button type="submit">검색</button>
 	</form>
 	<div class="pt-2">

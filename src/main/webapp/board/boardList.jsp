@@ -80,6 +80,22 @@
 	<title>boardList</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<style>
+		 a.menu:link, a.menu:visited {
+		  background-color: white;
+		  color: black;
+		  border: 2px solid green;
+		  padding: 5px 20px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		}
+		
+		 a.menu:hover, a.menu:active {
+		  background-color: green;
+		  color: white;
+		}
+	</style>
 </head>
 <body>
 	<!-- 메뉴 partial jsp 구성  -->

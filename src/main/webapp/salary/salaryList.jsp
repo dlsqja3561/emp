@@ -111,8 +111,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-	<div>
-		<table border="1">
+	<div class="container pt-5" style="text-align: center">
+		<table class="table table-bordered table-striped">
 			<tr>
 				<th>empNo</th>
 				<th>salary</th>

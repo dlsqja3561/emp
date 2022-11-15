@@ -3,9 +3,10 @@
 <%@ page import="vo.*" %>
 <%@ page import="java.util.*" %>
 <%
-	// 1.
+	
 	//한글처리 utf-8로 인코딩
 	request.setCharacterEncoding("utf-8");
+	// 1.
 	// 검색 입력값
 	String word = request.getParameter("word");
 	// 페이징
@@ -113,6 +114,7 @@
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	</div>
 	<div class="container pt-5" style="text-align: center">
+		<h1 class="alert alert-success">deptEmpList</h1>
 		<table class="table table-bordered table-striped">
 			<tr>
 				<th>사원번호</th>

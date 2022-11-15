@@ -60,8 +60,7 @@
 	     , s.salary salary
 	     , s.from_date fromDate
 	     , s.to_date toDate
-	     , e.first_name firstName 
-	     , e.last_name lastName
+	     , CONCAT(e.first_name, ' ', e.last_name) name
 	from
 	salaries s INNER JOIN employees e    # 테이블 두개를 합칠때 : 테이블1 JOIN 테이블2 ON 합치는 조건식 
 	ON s.emp_no = e.emp_no
@@ -145,9 +144,8 @@
 	<div>
 		<!-- 검색창 -->
 		<form method="post" action="<%=request.getContextPath()%>/salary/salaryMapList.jsp">
-			<label>번호 or 이름 검색 : </label>	
-		 		<input type="text" name="word" id="word">
-		 		<button type="submit">검색</button>
+	 		<input type="text" name="word" id="word" placeholder="번호 or 이름 검색">
+	 		<button type="submit">검색</button>
 		</form>
 	</div>
 	<!-- 페이징 코드 -->

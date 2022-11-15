@@ -107,8 +107,28 @@
 	<title>Insert title here</title>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+	<style>
+		 a.menu:link, a.menu:visited {
+		  background-color: white;
+		  color: black;
+		  border: 2px solid green;
+		  padding: 5px 20px;
+		  text-align: center;
+		  text-decoration: none;
+		  display: inline-block;
+		}
+		
+		 a.menu:hover, a.menu:active {
+		  background-color: green;
+		  color: white;
+		}
+	</style>
 </head>
 <body>
+	<!-- 메뉴 partial jsp 구성  -->
+	<div style="text-align: center">
+		<jsp:include page="/inc/menu.jsp"></jsp:include>
+	</div>
 	<div class="container pt-5" style="text-align: center">
 		<h1 class="alert alert-success">salaryList</h1>
 		<table class="table table-bordered table-striped">
@@ -138,9 +158,10 @@
 	<div>
 		<!-- 검색창 -->
 		<form method="post" action="<%=request.getContextPath()%>/salary/salaryList.jsp">
-			<label>번호 or 이름 검색 : </label>	
-		 		<input type="text" name="word" id="word">
-		 		<button type="submit">검색</button>
+			<div style="text-align: center">
+			 	<input type="text" name="word" id="word" placeholder="번호 or 이름 검색">
+			 	<button type="submit">검색</button>
+		 	</div>
 		</form>
 	</div>
 	<!-- 페이징 코드 -->

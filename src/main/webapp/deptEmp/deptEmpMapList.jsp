@@ -75,20 +75,20 @@
 	// Class  없고  hashmap 사용시
 	ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
 	while(rs.next()) {
-		HashMap<String, Object> h = new HashMap<String, Object>();
-		h.put("empNo", rs.getInt("empNo"));
-		h.put("firstName", rs.getString("firstName"));
-		h.put("deptNo", rs.getString("deptNo"));
-		h.put("deptname", rs.getString("deptname"));
-		h.put("fromDate", rs.getString("fromDate"));
-		h.put("toDate", rs.getString("toDate"));
-		list.add(h);
+		HashMap<String, Object> m = new HashMap<String, Object>();
+		m.put("empNo", rs.getInt("empNo"));
+		m.put("firstName", rs.getString("firstName"));
+		m.put("deptNo", rs.getString("deptNo"));
+		m.put("deptname", rs.getString("deptname"));
+		m.put("fromDate", rs.getString("fromDate"));
+		m.put("toDate", rs.getString("toDate"));
+		list.add(m);
 	}
 	
 	// Connection 연결종료
 	rs.close();
-	countRs.close();
 	stmt.close();
+	countRs.close();
 	countStmt.close();
 	conn.close();
 %>
@@ -110,23 +110,24 @@
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
 	</div>
 	<div class="container pt-5" style="text-align: center">
+		<h1 class="alert alert-success">deptEmpMapList</h1>
 		<table class="table table-bordered table-striped">
 			<tr>
 				<th>사원번호</th>
 				<th>부서번호</th>
 				<th>이름</th>
-				<th>fromDate</th>
-				<th>toDate</th>
+				<th>입사일</th>
+				<th>퇴사일</th>
 			</tr>
 			<%
-				for(HashMap<String, Object> h : list) {
+				for(HashMap<String, Object> m : list) {
 			%>
 					<tr>
-						<td><%=h.get("empNo")%></td>
-						<td><%=h.get("deptNo")%></td>
-						<td><%=h.get("firstName")%></td>
-						<td><%=h.get("fromDate")%></td>
-						<td><%=h.get("toDate")%></td>
+						<td><%=m.get("empNo")%></td>
+						<td><%=m.get("deptNo")%></td>
+						<td><%=m.get("firstName")%></td>
+						<td><%=m.get("fromDate")%></td>
+						<td><%=m.get("toDate")%></td>
 					</tr>
 			<%      
 				}

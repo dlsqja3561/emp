@@ -149,7 +149,7 @@
 	<!-- 페이징 코드 -->
 	<div style="text-align: center">
 		<%
-		// word 값 X 페이징-----------------------------------------------
+		// word(검색) 값 X 페이징-----------------------------------------------
 			if(word == null) {
 		%>
 				<a href="<%=request.getContextPath()%>/salary/salaryList.jsp?currentPage=1">처음</a>

@@ -125,6 +125,7 @@
 	</style>
 </head>
 <body>
+<<<<<<< main
 	<!-- 메뉴 partial jsp 구성  -->
 	<div style="text-align: center">
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
@@ -132,6 +133,10 @@
 	<div class="container pt-5" style="text-align: center">
 		<h1 class="alert alert-success">salaryList</h1>
 		<table class="table table-bordered table-striped">
+=======
+	<div>
+		<table border="1">
+>>>>>>> 4227842 deptEmpMapList.jsp 추가
 			<tr>
 				<th>empNo</th>
 				<th>salary</th>

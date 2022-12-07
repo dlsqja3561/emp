@@ -120,8 +120,8 @@
 				<th>사원번호</th>
 				<th>부서번호</th>
 				<th>이름</th>
-				<th>입사일</th>
-				<th>퇴사일</th>
+				<th>fromDate</th>
+				<th>toDate</th>
 			</tr>
 			<%
 				for(DeptEmp de : list) {

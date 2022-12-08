@@ -125,7 +125,6 @@
 	</style>
 </head>
 <body>
-<<<<<<< main
 	<!-- 메뉴 partial jsp 구성  -->
 	<div style="text-align: center">
 		<jsp:include page="/inc/menu.jsp"></jsp:include>
